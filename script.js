@@ -15301,6 +15301,7 @@ const alertContainer = document.querySelector("[data-alert-container]")
 const modalContainer = document.querySelector("[data-end-modal]")
 const resetBtn = document.querySelector("[data-reset]")
 const closeBtn = document.querySelector("[data-close-modal]")
+const screen = document.querySelector("[data-screen]")
 
 startInteraction()
 
@@ -15475,10 +15476,12 @@ function danceTiles(tiles) {
 
 function openModal() {
     modalContainer.classList.remove("hide")
+    screen.classList.remove("hide")
 }
 
 function closeModal() {
     modalContainer.classList.add("hide")
+    screen.classList.remove("hide")
 }
 
 function resetGame() {
