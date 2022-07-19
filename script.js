@@ -15450,7 +15450,7 @@ function checkWinLose(guess, tiles) {
         showAlert("You Win!", 5000)
         danceTiles(tiles)
         stopInteraction()
-        openModal()
+        setTimeout(() => {openModal()}, 1000)
         return
     }
 
