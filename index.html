@@ -10,6 +10,20 @@
 </head>
 <body>
 
+    <div class="title-container">
+        <h1 class="title">WORDLE CLONE</h1>
+        <p class="subtitle">replicated by david lopez</p>
+    </div>
+
+    <div data-end-modal class="end-modal hide">
+        <div class="inner-content">
+            <h2>Thanks for Playing!</h1>
+            <p>Would you like to try again?</p>
+            <button data-reset class="btn reset" onClick="resetGame()">TRY AGAIN</button>
+            <button data-close-modal class="btn close-modal" onClick="closeModal()">NO THANKS</button>
+        </div>
+    </div>
+
     <div class="alert-container" data-alert-container></div>
     
     <div data-guess-grid class="guess-grid">

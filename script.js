@@ -15292,11 +15292,17 @@ const dictionary = [
 
 const WORD_LENGTH = 5
 const FLIP_ANIMATION_DURATION = 500
+const DANCE_ANIMATION_DURATION = 500
 const keyboard = document.querySelector("[data-keyboard]")
 const guessGrid = document.querySelector("[data-guess-grid]")
 const randomTargetWord = Math.floor(Math.random() * targetWords.length)
 const targetWord = targetWords[randomTargetWord]
 const alertContainer = document.querySelector("[data-alert-container]")
+const modalContainer = document.querySelector("[data-end-modal]")
+const resetBtn = document.querySelector("[data-reset]")
+const closeBtn = document.querySelector("[data-close-modal]")
+
+startInteraction()
 
 function startInteraction() {
     document.addEventListener("onClick", handleMouseClick)
@@ -15315,7 +15321,7 @@ function handleMouseClick(e) {
     }
 
     if (e.target.matches("[data-enter]")) {
-        submiteGuess()
+        submitGuess()
         return
     }
 
@@ -15341,8 +15347,6 @@ function handleKeyPress(e) {
         return
     }
 }
-
-startInteraction()
 
 function pressKey(key) {
     const activeTiles = getActiveTiles()
@@ -15407,6 +15411,7 @@ function flipTile(tile, index, array, guess) {
         if(index === array.length - 1) {
             tile.addEventListener("transitionend", () => {
                 startInteraction()
+                checkWinLose(guess, array)
             }), { once: true }
         }
     }, { once: true })
@@ -15438,4 +15443,44 @@ function shakeTiles(tiles) {
             tile.classList.remove("shake")
         }, { once: true })
     })
+}
+
+function checkWinLose(guess, tiles) {
+    if (guess === targetWord) {
+        showAlert("You Win!", 5000)
+        danceTiles(tiles)
+        stopInteraction()
+        openModal()
+        return
+    }
+
+    const remainingTiles = guessGrid.querySelectorAll(":not([data-letter])")
+    if (remainingTiles.length === 0) {
+        showAlert(targetWord.toUpperCase(), null)
+        openModal()
+        stopInteraction()
+    }
+}
+
+function danceTiles(tiles) {
+    tiles.forEach((tile, index) => {
+        setTimeout(() => {
+            tile.classList.add("dance")
+            tile.addEventListener("animationend", () => {
+                tile.classList.remove("dance")
+            }, { once: true })
+        }, index * DANCE_ANIMATION_DURATION / 5)
+    })
+}
+
+function openModal() {
+    modalContainer.classList.remove("hide")
+}
+
+function closeModal() {
+    modalContainer.classList.add("hide")
+}
+
+function resetGame() {
+    location.reload()
 }
