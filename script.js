@@ -15306,7 +15306,7 @@ const screen = document.querySelector("[data-screen]")
 startInteraction()
 
 function startInteraction() {
-    document.addEventListener("onClick", handleMouseClick)
+    document.addEventListener("click", handleMouseClick)
     document.addEventListener("keydown", handleKeyPress)
 }
 
@@ -15481,7 +15481,7 @@ function openModal() {
 
 function closeModal() {
     modalContainer.classList.add("hide")
-    screen.classList.remove("hide")
+    screen.classList.add("hide")
 }
 
 function resetGame() {
